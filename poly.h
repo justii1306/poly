@@ -12,8 +12,7 @@ public:
     friend poly operator *(poly, poly);
     friend poly operator *(double, poly);
     double operator ()(double);
-
-//private:
+private:
     std::vector<double> w;
 };
 
