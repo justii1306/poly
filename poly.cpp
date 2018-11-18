@@ -3,13 +3,15 @@
 #include <iostream>
 #include <vector>
 
+#define polysize 10
+
 poly::poly(){
-    this->w.insert(this->w.begin(), 9, 0.0);
+    this->w.insert(this->w.begin(), polysize, 0.0);
 }
 
 poly::poly(double wartosc){
     this->w.insert(this->w.begin(), wartosc);
-    this->w.insert(this->w.begin()+1, 8, 0.0);
+    this->w.insert(this->w.begin()+1, polysize-1, 0.0);
 }
 
 double& poly::operator[] (int i){
@@ -59,9 +61,9 @@ poly operator *(double l, poly P){
 
 double poly::operator ()(double l){
     double temp;
-    temp = this->w[0];
+    temp = this->w[this->w.size()-1];
     for (int i=1; i<this->w.size(); i++)
-        temp = temp*l + this->w[i];
+        temp = temp*l + this->w[this->w.size()-i-1];
     return temp;
 }
 
