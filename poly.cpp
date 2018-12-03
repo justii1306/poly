@@ -45,6 +45,7 @@ poly operator +(poly P1, poly P2){
 
 poly operator *(poly P1, poly P2){
     poly temp;
+    temp.w.resize(P1.w.size()+P2.w.size());
     for (int i=0; i<P1.w.size(); i++){
         for (int j=0; j<P2.w.size(); j++)
             temp[i+j] += P1[i]*P2[j];
