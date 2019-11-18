@@ -15,7 +15,6 @@ public:
     double operator ()(double);
     poly& operator =(int);
 private:
-    //std::vector<double> w;
     wektor w;
 };
 
