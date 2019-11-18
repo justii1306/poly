@@ -1,4 +1,3 @@
-//#include <vector>
 #include <stdio.h>
 #include <iostream>
 #include "wektor.h"
