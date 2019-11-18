@@ -1,7 +1,7 @@
 #include "poly.h"
 #include <stdio.h>
 #include <iostream>
-//#include "wektor.h"
+#include "wektor.h"
 
 #define polysize 10
 
@@ -14,22 +14,6 @@ poly::poly(double wartosc){
     this->w.insert(this->w.begin()+1, polysize-1, 0.0);
 }
 
-double& poly::operator[] (int i){
-    return this->w[i];
-}
-
-std::ostream& operator <<(std::ostream &s, poly &P){
-    int n = 0;
-    for (;n<(P.w.size()-1);n++){
-        if ((P.w[P.w.size()-1-n]) != 0){
-            s << (P.w[P.w.size()-1-n]) << "x^"<< P.w.size()-n-1 << " + ";
-        }
-    }
-    if ((P.w[P.w.size()-1-n]) != 0){
-        s << (P.w[P.w.size()-1-n]);
-    }
-    return s;
-}
 
 poly operator +(poly P1, poly P2){
     poly temp;
@@ -59,15 +43,4 @@ poly operator *(double l, poly P){
     return temp;
 }
 
-double poly::operator ()(double l){
-    double temp;
-    temp = this->w[this->w.size()-1];
-    for (int i=1; i<this->w.size(); i++)
-        temp = temp*l + this->w[this->w.size()-i-1];
-    return temp;
-}
 
-poly &poly::operator =(int foo){
-  this->w = foo;
-  return *this;
-}
