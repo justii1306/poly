@@ -1,7 +1,7 @@
 #include "poly.h"
 #include <stdio.h>
 #include <iostream>
-#include <vector>
+//#include "wektor.h"
 
 #define polysize 10
 
@@ -20,7 +20,7 @@ double& poly::operator[] (int i){
 
 std::ostream& operator <<(std::ostream &s, poly &P){
     int n = 0;
-    for (n;n<(P.w.size()-1);n++){
+    for (;n<(P.w.size()-1);n++){
         if ((P.w[P.w.size()-1-n]) != 0){
             s << (P.w[P.w.size()-1-n]) << "x^"<< P.w.size()-n-1 << " + ";
         }
@@ -44,7 +44,7 @@ poly operator +(poly P1, poly P2){
 }
 
 poly operator *(poly P1, poly P2){
-    poly temp;
+    poly temp(P1.w.size()+P2.w.size());
     for (int i=0; i<P1.w.size(); i++){
         for (int j=0; j<P2.w.size(); j++)
             temp[i+j] += P1[i]*P2[j];
@@ -67,3 +67,7 @@ double poly::operator ()(double l){
     return temp;
 }
 
+poly &poly::operator =(int foo){
+  this->w = foo;
+  return *this;
+}

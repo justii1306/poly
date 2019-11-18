@@ -1,6 +1,7 @@
-#include <vector>
+//#include <vector>
 #include <stdio.h>
 #include <iostream>
+#include "wektor.h"
 
 class poly{
 public:
@@ -12,7 +13,9 @@ public:
     friend poly operator *(poly, poly);
     friend poly operator *(double, poly);
     double operator ()(double);
+    poly& operator =(int);
 private:
-    std::vector<double> w;
+    //std::vector<double> w;
+    wektor w;
 };
 
