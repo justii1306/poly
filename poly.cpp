@@ -16,19 +16,14 @@ poly::poly(int value){
 }
 
 poly::poly(const poly& P){
-  std::cout<<std::endl<<"COPYCOPYCOPY"<<std::endl;
   this->size = P.size;
   this->vec = (double*)calloc(this->size, sizeof(double));
   for (int i=0; i < this->size; i++)
     this->vec[i] = P.vec[i];
-  for(int j = 0; j < this->size; j++)
-    std::cout << "vec[" << j << "]: " << this->vec[j] << std::endl;
-    std::cout << "this->size: " << this->size << std::endl;
 }
 
 poly::poly(int size, int second_constructor_just_for_the_sake_of_not_writing_different_function){
   this->size = size;
-  std::cout<<"size: "<<size<<" this->size: "<<this->size<<std::endl;
   this->vec = (double*)calloc(this->size, sizeof(double));
 }
 
@@ -48,7 +43,6 @@ double& poly::operator[] (int i){
       exit(EXIT_FAILURE);
     } else {
       for (int j=this->size-1;j>oldsize-1;j--){
-	std::cout<<"Usuwamy: "<<temp[j]<<std::endl;
         temp[j] = 0;}
       vec = temp;
     }
@@ -65,44 +59,41 @@ std::ostream& operator <<(std::ostream &s, poly &P){
     if ((P.vec[0]) != 0){
         s << (P.vec[0]);
     }
-    for(int j = 0; j < P.size; j++)
-    std::cout << "vec[" << j << "]: " << P.vec[j] << std::endl;
-    std::cout << "P.size: " << P.size << std::endl;
     return s;
 }
 
 poly operator +(poly P1, poly P2){
     int biggersize = P1.size >= P2.size ? P1.size : P2.size;
     poly temp(biggersize,0);
-    if(P1.size>P2.size){
-        for (int i=0;i<P1.size;i++)
-            temp.vec[i]=P1.vec[i]+P2.vec[i];
+    if(P1.size<P2.size){
+        int i = 0; //Jesli P2 jest wieksze
+        for (;i<P1.size;i++) //Przejdz przez cale P1
+            temp.vec[i]=P1.vec[i]+P2.vec[i]; 
+        for (;i<P2.size;i++) //Dodaj reszte P2
+            temp.vec[i]=P2.vec[i];
     }else{
-        for (int i=0;i<P2.size;i++)
+        int i = 0; //Jesli P1 jest wieksze
+        for (;i<P2.size;i++) //Przejdz przez cale P2
             temp.vec[i]=P1.vec[i]+P2.vec[i];
+        for (;i<P1.size;i++) //Dodaj reszte z P1
+            temp.vec[i]=P1.vec[i];
     }
     return temp;
 }
 
 poly operator *(poly P1, poly P2){
-    poly temp(P1.size+P2.size,0);
+    poly temp(P1.size+P2.size,0); //Rozmiar bedzie suma rozmiarow wielomianow
     for (int i=0; i<P1.size; i++){
         for (int j=0; j<P2.size; j++)
             temp.vec[i+j] += P1.vec[i]*P2.vec[j];
     }
-    for(int j = 0; j < temp.size; j++)
-    std::cout << "vec[" << j << "]: " << temp.vec[j] << std::endl;
-    std::cout << "temp.size: " << temp.size << std::endl;
     return temp;
 }
 
 poly operator *(double l, poly P){
-    poly temp(P);
-    for (int i=0; i<P.size; i++)
+    poly temp(P); //skopiujmy wielomian P
+    for (int i=0; i<temp.size; i++)
             temp.vec[i] = l*P.vec[i];
-    for(int j = 0; j < temp.size; j++)
-    std::cout << "vec[" << j << "]: " << temp.vec[j] << std::endl;
-    std::cout << "temp.size: " << temp.size << std::endl;
     return temp;
 }
 
