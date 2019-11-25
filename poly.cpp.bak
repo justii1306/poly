@@ -1,0 +1,79 @@
+#include "poly.h"
+#include <stdio.h>
+#include <iostream>
+#include <stdlib.h>
+//#include "wektor.h"
+
+
+poly::poly(){
+  size = 1;
+  vec = (double*)calloc(size, sizeof(double));
+}
+
+poly::poly(int size){
+  this->size = size;
+  vec = (double*)calloc(size, sizeof(double));
+}
+
+double& poly::operator[] (int i){
+  if (i >= size){
+    this->size = i;
+    vec = (double*)realloc(vec, size * sizeof(double));
+  }
+  return vec[i];
+}
+
+std::ostream& operator <<(std::ostream &s, poly &P){
+    int n = 0;
+    for (;n<(P.size-1);n++){
+        if ((P.vec[P.size-1-n]) != 0){
+            s << (P.vec[P.size-1-n]) << "x^"<< P.size-n-1 << " + ";
+        }
+    }
+    if ((P.vec[P.size-1-n]) != 0){
+        s << (P.vec[P.size-1-n]);
+    }
+    return s;
+}
+
+poly operator +(poly P1, poly P2){
+    biggersize = P1.size >= P2.size ? P1.size : P2.size;
+    poly temp;
+    if(P1.size>P2.size){
+        for (int i=0;i<P1.size;i++)
+            temp.vec[i]=P1.vec[i]+P2.vec[i];
+    }else{
+        for (int i=0;i<P2.size;i++)
+            temp.vec[i]=P1.vec[i]+P2.vec[i];
+    }
+   return temp;
+}
+
+poly operator *(poly P1, poly P2){
+    poly temp(P1.size+P2.size);
+    for (int i=0; i<P1.size; i++){
+        for (int j=0; j<P2.size; j++)
+            temp.vec[i+j] += P1.vec[i]*P2.vec[j];
+    }
+    return temp;
+}
+
+poly operator *(double l, poly P){
+    poly temp(P.size);
+    for (int i=0; i<P.size; i++)
+            temp.vec[i] = l*P.vec[i];
+    return temp;
+}
+
+double poly::operator ()(double l){
+    double temp;
+    temp = this.vec[this->size-1];
+    for (int i=1; i<this->size; i++)
+        temp = temp*l + this.vec[this.size-i-1];
+    return temp;
+}
+
+poly &poly::operator =(int foo){
+  this.vec = foo;
+  return *this;
+}

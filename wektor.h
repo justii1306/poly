@@ -7,15 +7,19 @@
 class wektor{
 public:
     wektor(){
-      //vecsize = 10; 
-      //vec = new double[vecsize]();
+      size = 1;
+      vec = calloc(size, sizeof(double));
     };
     wektor(int size){
-      //vec = new double[size]();
-      //vecsize = size;
+      vec = calloc(size, sizeof(double));
     };
-    void freeme(){
-//      delete vec;
+    wektor(const wektor &w2){
+      vec = calloc(w2.size, sizeof(double));
+      for (int i = 0; i < this.size; i++)
+        vec[i] = w2.vec[i];
+    };
+    ~wektor(){
+      free(vec);
     }
     double* insert(double* position, double value){
       int pos = vec-position;
@@ -33,14 +37,19 @@ public:
       return vec;
     };
     int size(){
-      int j = 0;
-      for (int i = 0; i < 9; i++)
-        if (vec[i] != 0)
-          j = i;
+//      int j = 0;
+//      for (int i = 0; i < 9; i++)
+//        if (vec[i] != 0)
+//          j = i;
 //      std::cout << "J: " << j << std::endl;
-      return j+1;
+//      return j+1;
+    return size;
     };
     double &operator[](int index) {
+        if (index >= size){
+          size = index+1;
+          vec = realloc(size, sizeof(double)
+        }
         return vec[index];
     };
     wektor &operator=(int foo){
@@ -48,7 +57,7 @@ public:
       return *this;
     };
 private:
-    double vec[10];
-    int vecsize;
+    double* vec;
+    int size;
 };
 
