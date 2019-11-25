@@ -15,7 +15,7 @@ public:
     friend poly operator *(poly, poly);
     friend poly operator *(double, poly);
     double operator ()(double);
-    //poly& operator =(int);
+    poly operator =(poly);
 private:
     double* vec;
     int size;

@@ -104,3 +104,9 @@ double poly::operator ()(double l){
         temp = temp*l + this->vec[this->size-i-1];
     return temp;
 }
+
+poly poly::operator =(const poly P){
+  this->size = P.size;
+  this->vec = P.vec;
+  return *this;
+}
