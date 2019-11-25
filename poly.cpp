@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
-//#include "wektor.h"
 
 
 poly::poly(){
@@ -38,9 +37,6 @@ poly::~poly(){
 }
 
 double& poly::operator[] (int i){
-  //std::cout << "Inside []: " << i << std::endl;
-  //for(int j = 0; j < this->size; j++)
-    //std::cout << "vec[" << j << "]: " << vec[j] << std::endl;
   if (i >= this->size){
     int oldsize = this->size;
     this->size = i+1;
@@ -89,7 +85,6 @@ poly operator +(poly P1, poly P2){
 }
 
 poly operator *(poly P1, poly P2){
-    //std::cout <<"P1.size: "<<P1.size<<" P2.size: "<<P2.size<<std::endl;
     poly temp(P1.size+P2.size,0);
     for (int i=0; i<P1.size; i++){
         for (int j=0; j<P2.size; j++)
@@ -118,9 +113,3 @@ double poly::operator ()(double l){
         temp = temp*l + this->vec[this->size-i-1];
     return temp;
 }
-
-//poly &poly::operator =(int foo){
-//  std::cout<<"KURWA"<<std::endl;
-//  this->vec[0] = foo;
-//  return *this;
-//}
